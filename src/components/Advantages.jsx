@@ -10,8 +10,8 @@ const advantages = [
 
 const Advantages = () => {
   return (
-    <div className="py-16 bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div id="faculty" className="py-16 bg-white overflow-hidden">
+      <div id="results" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row gap-8 mb-16 items-center">
           <div className="w-full lg:w-1/4">
             <p className="text-primary font-bold text-sm tracking-wide uppercase mb-2">Why Choose Us</p>

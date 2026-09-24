@@ -23,7 +23,7 @@ const cardVariants = {
 
 const Courses = () => {
   return (
-    <div className="py-24 bg-white max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div id="courses" className="py-24 bg-white max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-16 gap-6">
         <div className="max-w-2xl">
           <p className="text-secondary font-bold text-sm tracking-[0.15em] uppercase mb-3 flex items-center gap-2">

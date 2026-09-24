@@ -8,7 +8,7 @@ const Gallery = () => {
   ];
 
   return (
-    <div className="py-16 bg-blue-50/30">
+    <div id="gallery" className="py-16 bg-blue-50/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-10 gap-4">
           <div>
