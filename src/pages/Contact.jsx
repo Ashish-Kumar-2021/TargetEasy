@@ -1,10 +1,41 @@
+import { useState } from 'react';
 import { Phone, Mail, MapPin, Send, Clock } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    course: '',
+    message: ''
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    
+    // Check if the field being typed in is the phone number
+    if (name === 'phone') {
+      // Remove all non-numeric characters and restrict to a maximum of 10 digits
+      const onlyNumbers = value.replace(/[^0-9]/g, '').slice(0, 10);
+      setFormData({ ...formData, [name]: onlyNumbers });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault(); 
+
+    const whatsappMessage = `*New Enquiry from Target Easy Website*%0A%0A*Student Name:* ${formData.name}%0A*Phone Number:* ${formData.phone}%0A*Email Address:* ${formData.email || 'Not provided'}%0A*Course Selected:* ${formData.course || 'Not provided'}%0A*Message:* ${formData.message || 'No message'}`;
+    const whatsappUrl = `https://wa.me/919380563478?text=${whatsappMessage}`;
+
+    window.open(whatsappUrl, '_blank');
+    setFormData({ name: '', phone: '', email: '', course: '', message: '' });
+  };
+
   return (
     <div className="pt-24 pb-16 bg-gray-50 min-h-screen">
-      {/* Header Section */}
       <div className="bg-primary text-white py-16 text-center">
         <h1 className="text-4xl lg:text-5xl font-extrabold mb-4">Contact Us</h1>
         <p className="text-blue-200 text-lg max-w-2xl mx-auto px-4">
@@ -15,7 +46,6 @@ const Contact = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
         <div className="flex flex-col lg:flex-row gap-12">
           
-          {/* Left Side: Contact Information & Map */}
           <motion.div 
             initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}
             className="w-full lg:w-1/3 space-y-8"
@@ -44,7 +74,6 @@ const Contact = () => {
                   </div>
                 </a>
 
-                {/* Clickable Address Link */}
                 <a href="https://www.google.com/maps/place/TARGET+EASY+(Er.+Ram+sah)/@26.4345808,85.8993012,17z/data=!4m14!1m7!3m6!1s0x39ec4bcf40bcad73:0x6a5dcd3b812907d4!2sTARGET+EASY+(Er.+Ram+sah)!8m2!3d26.4345808!4d85.9018761!16s%2Fg%2F11t8c12gyw!3m5!1s0x39ec4bcf40bcad73:0x6a5dcd3b812907d4!8m2!3d26.4345808!4d85.9018761!16s%2Fg%2F11t8c12gyw?entry=ttu&g_ep=EgoyMDI2MDkyMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" className="flex items-start gap-4 group">
                   <div className="w-12 h-12 bg-green-50 text-green-600 rounded-full flex items-center justify-center shrink-0 group-hover:bg-green-600 group-hover:text-white transition-colors">
                     <MapPin size={20} />
@@ -67,10 +96,7 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* Google Map with Clickable Overlay */}
             <div className="bg-white p-3 rounded-2xl shadow-sm border border-gray-100 overflow-hidden relative group">
-              
-              {/* This invisible anchor tag sits on top of the iframe to capture clicks */}
               <a 
                 href="https://www.google.com/maps/place/TARGET+EASY+(Er.+Ram+sah)/@26.4345808,85.8993012,17z/data=!4m14!1m7!3m6!1s0x39ec4bcf40bcad73:0x6a5dcd3b812907d4!2sTARGET+EASY+(Er.+Ram+sah)!8m2!3d26.4345808!4d85.9018761!16s%2Fg%2F11t8c12gyw!3m5!1s0x39ec4bcf40bcad73:0x6a5dcd3b812907d4!8m2!3d26.4345808!4d85.9018761!16s%2Fg%2F11t8c12gyw?entry=ttu&g_ep=EgoyMDI2MDkyMS4wIKXMDSoASAFQAw%3D%3D"
                 target="_blank"
@@ -91,7 +117,6 @@ const Contact = () => {
             </div>
           </motion.div>
 
-          {/* Right Side: Enquiry Form */}
           <motion.div 
             initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}
             className="w-full lg:w-2/3 bg-white p-8 lg:p-12 rounded-2xl shadow-sm border border-gray-100"
@@ -99,38 +124,77 @@ const Contact = () => {
             <h3 className="text-3xl font-extrabold text-primary mb-2">Send an Enquiry</h3>
             <p className="text-gray-500 mb-8">Fill out the form below and our team will get back to you shortly.</p>
             
-            <form className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-bold text-gray-700 mb-2">Student Name *</label>
-                  <input type="text" className="w-full px-5 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all bg-gray-50 focus:bg-white" placeholder="Enter full name" required />
+                  <input 
+                    type="text" 
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="w-full px-5 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all bg-gray-50 focus:bg-white" 
+                    placeholder="Enter full name" 
+                    required 
+                  />
                 </div>
                 <div>
                   <label className="block text-sm font-bold text-gray-700 mb-2">Phone Number *</label>
-                  <input type="tel" className="w-full px-5 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all bg-gray-50 focus:bg-white" placeholder="+91 00000 00000" required />
+                  <input 
+                    type="tel" 
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className="w-full px-5 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all bg-gray-50 focus:bg-white" 
+                    placeholder="10-digit mobile number"
+                    minLength="10"
+                    maxLength="10"
+                    pattern="[0-9]{10}"
+                    title="Please enter exactly 10 digits"
+                    required 
+                  />
                 </div>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-bold text-gray-700 mb-2">Email Address</label>
-                  <input type="email" className="w-full px-5 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all bg-gray-50 focus:bg-white" placeholder="your@email.com" />
+                  <input 
+                    type="email" 
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="w-full px-5 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all bg-gray-50 focus:bg-white" 
+                    placeholder="your@email.com" 
+                  />
                 </div>
                 <div>
                   <label className="block text-sm font-bold text-gray-700 mb-2">Select Class / Course</label>
-                  <select className="w-full px-5 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all bg-gray-50 focus:bg-white text-gray-600">
+                  <select 
+                    name="course"
+                    value={formData.course}
+                    onChange={handleChange}
+                    className="w-full px-5 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all bg-gray-50 focus:bg-white text-gray-600"
+                  >
                     <option value="">Select a course...</option>
-                    <option value="class6-10">Class 6 to 10</option>
-                    <option value="class11-12">Class 11 & 12</option>
-                    <option value="competitive">Competitive Exams</option>
-                    <option value="foundation">Foundation Course</option>
+                    <option value="Class 6 to 10">Class 6 to 10</option>
+                    <option value="Class 11 & 12">Class 11 & 12</option>
+                    <option value="Competitive Exams">Competitive Exams</option>
+                    <option value="Foundation Course">Foundation Course</option>
                   </select>
                 </div>
               </div>
 
               <div>
                 <label className="block text-sm font-bold text-gray-700 mb-2">Your Message or Query</label>
-                <textarea rows="4" className="w-full px-5 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all bg-gray-50 focus:bg-white resize-none" placeholder="How can we help you?"></textarea>
+                <textarea 
+                  rows="4" 
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  className="w-full px-5 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all bg-gray-50 focus:bg-white resize-none" 
+                  placeholder="How can we help you?"
+                ></textarea>
               </div>
 
               <button type="submit" className="bg-secondary text-white px-8 py-4 rounded-xl font-bold hover:bg-red-700 transition-all w-full md:w-auto flex items-center justify-center gap-2 shadow-lg shadow-red-500/30 group">
