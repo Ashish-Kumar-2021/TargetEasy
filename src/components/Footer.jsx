@@ -25,7 +25,6 @@ const Footer = () => {
               </a>
               <div>
                 <h3 className="text-white font-extrabold text-2xl tracking-tight">Target Easy</h3>
-                {/* Updated to include brackets and removed uppercase */}
                 <p className="text-blue-400 text-xs font-bold tracking-widest mt-1">(A vision)</p>
               </div>
             </div>
@@ -60,10 +59,12 @@ const Footer = () => {
                 <Mail size={20} className="text-gray-500 group-hover:text-secondary transition-colors" />
                 <span className="group-hover:text-gray-300 transition-colors break-all">ramkumarsah76ap@gmail.com</span>
               </a>
-              <p className="flex items-start gap-4 group">
+              
+              {/* Updated Clickable Address Link */}
+              <a href="https://www.google.com/maps/place/TARGET+EASY+(Er.+Ram+sah)/@26.4345808,85.8993012,17z/data=!3m1!4b1!4m6!3m5!1s0x39ec4bcf40bcad73:0x6a5dcd3b812907d4!8m2!3d26.4345808!4d85.9018761!16s%2Fg%2F11t8c12gyw?entry=ttu&g_ep=EgoyMDI2MDkyMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" className="flex items-start gap-4 group">
                 <MapPin size={20} className="text-gray-500 group-hover:text-secondary transition-colors" />
                 <span className="group-hover:text-gray-300 transition-colors leading-relaxed">Kataiya Road, Benipatti<br/>Madhubani, Bihar</span>
-              </p>
+              </a>
             </div>
           </div>
 
@@ -103,7 +104,6 @@ const Footer = () => {
 
         {/* Copyright Bar */}
         <div className="flex flex-col md:flex-row justify-between items-center text-sm font-medium">
-          {/* Updated to include brackets */}
           <p>© {new Date().getFullYear()} Target Easy - (A vision). All Rights Reserved.</p>
           <p className="mt-4 md:mt-0 tracking-wider text-gray-500">
             <span className="text-gray-300">Learn Today</span> <span className="text-secondary mx-2">|</span> <span className="text-gray-300">Lead Tomorrow</span>

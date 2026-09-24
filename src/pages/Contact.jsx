@@ -14,9 +14,7 @@ const Contact = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     
-    // Check if the field being typed in is the phone number
     if (name === 'phone') {
-      // Remove all non-numeric characters and restrict to a maximum of 10 digits
       const onlyNumbers = value.replace(/[^0-9]/g, '').slice(0, 10);
       setFormData({ ...formData, [name]: onlyNumbers });
     } else {
@@ -90,7 +88,8 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="text-sm text-gray-500 font-medium">Opening Hours</p>
-                    <p className="font-bold text-gray-800">Mon - Sat: 8:00 AM - 6:00 PM</p>
+                    {/* Updated Time */}
+                    <p className="font-bold text-gray-800">Mon - Sat: 6:00 AM - 8:00 PM</p>
                   </div>
                 </div>
               </div>
