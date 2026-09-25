@@ -25,8 +25,11 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault(); 
 
-    const whatsappMessage = `*New Enquiry from Target Easy Website*%0A%0A*Student Name:* ${formData.name}%0A*Phone Number:* ${formData.phone}%0A*Email Address:* ${formData.email || 'Not provided'}%0A*Course Selected:* ${formData.course || 'Not provided'}%0A*Message:* ${formData.message || 'No message'}`;
-    const whatsappUrl = `https://wa.me/919380563478?text=${whatsappMessage}`;
+    // 1. Build the message using standard line breaks (\n)
+    const rawMessage = `*New Enquiry from Target Easy Website*\n\n*Student Name:* ${formData.name}\n*Phone Number:* ${formData.phone}\n*Email Address:* ${formData.email || 'Not provided'}\n*Course Selected:* ${formData.course || 'Not provided'}\n*Message:* ${formData.message || 'No message'}`;
+    
+    // 2. Encode the message so special characters like '&' don't break the link
+    const whatsappUrl = `https://wa.me/919380563478?text=${encodeURIComponent(rawMessage)}`;
 
     window.open(whatsappUrl, '_blank');
     setFormData({ name: '', phone: '', email: '', course: '', message: '' });
