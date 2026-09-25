@@ -25,11 +25,10 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault(); 
 
-    // 1. Build the message using standard line breaks (\n)
     const rawMessage = `*New Enquiry from Target Easy Website*\n\n*Student Name:* ${formData.name}\n*Phone Number:* ${formData.phone}\n*Email Address:* ${formData.email || 'Not provided'}\n*Course Selected:* ${formData.course || 'Not provided'}\n*Message:* ${formData.message || 'No message'}`;
     
-    // 2. Encode the message so special characters like '&' don't break the link
-    const whatsappUrl = `https://wa.me/919380563478?text=${encodeURIComponent(rawMessage)}`;
+    // Updated WhatsApp number
+    const whatsappUrl = `https://wa.me/919555763558?text=${encodeURIComponent(rawMessage)}`;
 
     window.open(whatsappUrl, '_blank');
     setFormData({ name: '', phone: '', email: '', course: '', message: '' });
@@ -55,13 +54,14 @@ const Contact = () => {
               <h3 className="text-2xl font-bold text-primary mb-6 border-b pb-4">Get in Touch</h3>
               
               <div className="space-y-6">
-                <a href="tel:+919380563478" className="flex items-start gap-4 group">
+                {/* Updated Call Link & Number */}
+                <a href="tel:+919555763558" className="flex items-start gap-4 group">
                   <div className="w-12 h-12 bg-blue-50 text-primary rounded-full flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
                     <Phone size={20} />
                   </div>
                   <div>
                     <p className="text-sm text-gray-500 font-medium">Call Us Directly</p>
-                    <p className="font-bold text-gray-800">+91 9380563478</p>
+                    <p className="font-bold text-gray-800">+91 9555763558</p>
                   </div>
                 </a>
 

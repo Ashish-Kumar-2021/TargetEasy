@@ -48,9 +48,10 @@ const Footer = () => {
               <span className="w-2 h-2 bg-secondary rounded-full"></span> Contact Us
             </h4>
             <div className="space-y-4 text-sm">
-              <a href="tel:+919380563478" className="flex items-start gap-4 group">
+              {/* Updated Phone Number */}
+              <a href="tel:+919555763558" className="flex items-start gap-4 group">
                 <Phone size={20} className="text-gray-500 group-hover:text-secondary transition-colors" />
-                <span className="group-hover:text-gray-300 transition-colors">+91 9380563478</span>
+                <span className="group-hover:text-gray-300 transition-colors">+91 9555763558</span>
               </a>
               <a href="mailto:ramkumarsah76ap@gmail.com" className="flex items-start gap-4 group">
                 <Mail size={20} className="text-gray-500 group-hover:text-secondary transition-colors" />
@@ -78,7 +79,8 @@ const Footer = () => {
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
               </a>
 
-              <a href="https://wa.me/919380563478" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-green-500 hover:text-white transition-all duration-300 hover:-translate-y-1">
+              {/* Updated WhatsApp Icon Link */}
+              <a href="https://wa.me/919555763558" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-green-500 hover:text-white transition-all duration-300 hover:-translate-y-1">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
               </a>
 
