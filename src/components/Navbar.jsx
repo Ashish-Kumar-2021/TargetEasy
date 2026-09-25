@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const navLinks = [
     { name: 'Home', href: '/' },
@@ -15,12 +18,63 @@ const Navbar = () => {
     { name: 'Contact', href: '/contact' }
   ];
 
+  const handleNavClick = (e, href) => {
+    e.preventDefault();
+    setIsOpen(false);
+
+    // 1. Handle Contact page navigation
+    if (href === '/contact') {
+      navigate('/contact');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    // 2. Handle Home navigation
+    if (href === '/') {
+      if (location.pathname !== '/') {
+        navigate('/');
+      }
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 100);
+      return;
+    }
+
+    // 3. Handle Section Anchor scrolling (#about, #courses, #faculty, #gallery, #results)
+    if (href.startsWith('/#')) {
+      const targetId = href.replace('/#', '');
+
+      const scrollToSection = () => {
+        const element = document.getElementById(targetId);
+        if (element) {
+          const navbarHeight = 80; // Accounts for the fixed h-20 navbar
+          const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+          window.scrollTo({
+            top: elementPosition - navbarHeight,
+            behavior: 'smooth'
+          });
+          window.history.pushState(null, '', href);
+        }
+      };
+
+      // If currently on /contact, navigate to Home first, then scroll
+      if (location.pathname !== '/') {
+        navigate('/');
+        setTimeout(scrollToSection, 300);
+      } else {
+        // Wait 150ms for mobile menu to close so mobile Chrome doesn't cancel the scroll
+        setTimeout(scrollToSection, 150);
+      }
+    }
+  };
+
   return (
     <nav className="fixed w-full z-50 bg-white shadow-sm border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20 items-center">
           
-          <a href="/" className="flex items-center gap-3">
+          {/* Logo */}
+          <a href="/" onClick={(e) => handleNavClick(e, '/')} className="flex items-center gap-3">
             <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center p-1 shadow-sm border border-gray-100">
               <img src="/logo.jpg" alt="Target Easy Logo" className="w-full h-full object-contain rounded-full" />
             </div>
@@ -30,17 +84,28 @@ const Navbar = () => {
             </div>
           </a>
 
+          {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link, i) => (
-              <a key={i} href={link.href} className="text-gray-600 hover:text-primary font-semibold text-sm transition-colors">
+              <a
+                key={i}
+                href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
+                className="text-gray-600 hover:text-primary font-semibold text-sm transition-colors cursor-pointer"
+              >
                 {link.name}
               </a>
             ))}
-            <a href="/contact" className="bg-secondary text-white px-6 py-2.5 rounded-full font-bold hover:bg-red-700 transition-all shadow-md shadow-red-500/20 text-sm">
+            <a
+              href="/contact"
+              onClick={(e) => handleNavClick(e, '/contact')}
+              className="bg-secondary text-white px-6 py-2.5 rounded-full font-bold hover:bg-red-700 transition-all shadow-md shadow-red-500/20 text-sm cursor-pointer"
+            >
               Enquire Now
             </a>
           </div>
 
+          {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -54,6 +119,7 @@ const Navbar = () => {
         </div>
       </div>
 
+      {/* Mobile Menu Dropdown */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -67,8 +133,8 @@ const Navbar = () => {
                 <a
                   key={i}
                   href={link.href}
-                  onClick={() => setIsOpen(false)}
-                  className="block px-3 py-3 rounded-md text-base font-bold text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors"
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  className="block px-3 py-3 rounded-md text-base font-bold text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors cursor-pointer"
                 >
                   {link.name}
                 </a>
@@ -76,8 +142,8 @@ const Navbar = () => {
               <div className="pt-4 px-3">
                 <a
                   href="/contact"
-                  onClick={() => setIsOpen(false)}
-                  className="block w-full text-center bg-secondary text-white px-6 py-3 rounded-xl font-bold hover:bg-red-700 transition-all shadow-md"
+                  onClick={(e) => handleNavClick(e, '/contact')}
+                  className="block w-full text-center bg-secondary text-white px-6 py-3 rounded-xl font-bold hover:bg-red-700 transition-all shadow-md cursor-pointer"
                 >
                   Enquire Now
                 </a>
